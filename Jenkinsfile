@@ -11,31 +11,31 @@ pipeline {
             }
                         
         }
-        stage('Terraform Initialization') {
+//        stage('Terraform Initialization') {
         		
-            steps {
-		sh 'terraform init'
-            }
+//            steps {
+//		sh 'terraform init'
+//            }
                         
-        }
-        stage('Terraform Plan') {
+//        }
+//        stage('Terraform Plan') {
         		
-            steps {
-		sh 'terraform plan'
-            }
+//            steps {
+//		sh 'terraform plan'
+//            }
                         
-        }
-        stage('Terraform Apply') {
+//        }
+//        stage('Terraform Apply') {
         		
-            steps {
-		sh 'terraform apply --auto-approve'
-            }
+//            steps {
+//		sh 'terraform apply --auto-approve'
+//            }
                         
-        }
+//        }
         stage('Ansible deployment') {
         		
             steps {
-		sh 'anisble-playbook -i ansible/inventory/hosts.ini ansible/playbooks/nginx.yml -e "hosts=dev"'
+		sh 'ansible-playbook -i ansible/inventory/hosts.ini ansible/playbooks/nginx.yml -e "hosts=dev"'
             }
                         
         }
