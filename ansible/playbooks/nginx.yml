@@ -1,0 +1,20 @@
+---
+- hosts: "{{hosts}}"
+  gather_facts: False
+  tasks:
+  - name: ensure nginx is at the latest version
+    apt: pkg={{item}} state=latest
+    with_items:
+      - nginx
+
+  - name: Write the configuration file
+    template: src=../templates/conf/nginx.conf dest=/etc/nginx/nginx.conf
+
+  - name: Copy the test web pages
+    template: src=../templates/webpages/index.html dest=/var/www/html/index.html
+    notify:
+    - restart nginx
+
+  handlers:
+    - name: restart nginx
+      service: name=nginx state=restarted
