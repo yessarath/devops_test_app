@@ -32,5 +32,12 @@ pipeline {
             }
                         
         }
+        stage('Ansible deployment') {
+        		
+            steps {
+		sh 'anisble-playbook -i ansible/inventory/hosts.ini ansible/playbooks/nginx.yml -e "hosts=dev"'
+            }
+                        
+        }
    }
 }
